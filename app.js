@@ -10,8 +10,8 @@
 
 var taskInput = document.getElementById("new-task");//Add a new task.
 var addButton = document.getElementsByClassName("button")[0];//first button
-var incompleteTaskHolder = document.getElementById("tasks-incomplete");//ul of #incompleteTasks
-var completedTasksHolder = document.getElementById("tasks-complete");//completed-tasks
+var incompleteTaskHolder = document.getElementById("items-incomplete");//ul of #incompleteTasks
+var completedTasksHolder = document.getElementById("items-complete");//completed-tasks
 
 
 //New task list item
@@ -20,7 +20,7 @@ var createNewTaskElement = function (taskString) {
   var listItem = document.createElement("li");
 
   //input (checkbox)
-  var checkBox = document.createElement("input");//checkbx
+  var checkBox = document.createElement("input");//checkbox
   //label
   var label = document.createElement("label");//label
   //input (text)
@@ -35,11 +35,11 @@ var createNewTaskElement = function (taskString) {
   listItem.className = "item";
 
   label.innerText = taskString;
-  label.className = "label task";
+  label.className = "item__label task";
 
   //Each elements, needs appending
   checkBox.type = "checkbox";
-  checkBox.className = "checkbox";
+  checkBox.className = "item__checkbox";
 
   editInput.type = "text";
   editInput.className = "input task";
@@ -49,7 +49,7 @@ var createNewTaskElement = function (taskString) {
 
   deleteButton.className = "button delete";
   deleteButtonImg.src = "./remove.svg";
-  deleteButtonImg.className = "btn-image"
+  deleteButtonImg.className = "button__image"
   deleteButtonImg.alt = "task delete button"
   deleteButton.appendChild(deleteButtonImg);
 
@@ -62,8 +62,6 @@ var createNewTaskElement = function (taskString) {
   listItem.appendChild(deleteButton);
   return listItem;
 }
-
-
 
 var addTask = function () {
   console.log("Add Task...");
@@ -85,13 +83,12 @@ var editTask = function () {
   console.log("Edit Task...");
   console.log("Change 'edit' to 'save'");
 
-
   var listItem = this.parentNode;
 
   var editInput = listItem.querySelector(".input[type=text]");
   var label = listItem.querySelector("label");
   var editBtn = listItem.querySelector(".edit");
-  var containsClass = listItem.classList.contains("edit-mode");
+  var containsClass = listItem.classList.contains("item_edit");
   //If class of the parent is .editmode
   if (containsClass) {
 
@@ -105,7 +102,7 @@ var editTask = function () {
   }
 
   //toggle .editmode on the parent.
-  listItem.classList.toggle("edit-mode");
+  listItem.classList.toggle("item_edit");
 };
 
 
@@ -183,15 +180,11 @@ for (var i = 0; i < incompleteTaskHolder.children.length; i++) {
 }
 
 
-
-
 //cycle over completedTasksHolder ul list items
 for (var i = 0; i < completedTasksHolder.children.length; i++) {
   //bind events to list items chldren(tasksIncompleted)
   bindTaskEvents(completedTasksHolder.children[i], taskIncomplete);
 }
-
-
 
 
 // Issues with usability don't get seen until they are in front of a human tester.
